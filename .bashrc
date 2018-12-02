@@ -105,10 +105,14 @@ inside_git_repo="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
     # check git
     git_info=$(.git_info)
     ####################################################
- 
+    # Promt version with left and right  
     #PS1=$(printf "%*s\r%s\n$last_command "${brown} "$(tput cols)"  "  ${red}$(.right_prompt)   ${blue}$git_info "   "${green}$(.left_prompt)")
-    PS1=$(printf "%*s\r%s\n$last_command "${brown} "$(tput cols)"  "  ${red}$(.right_prompt)   ${blue}$git_info "   "${green}$(.left_prompt)")
- 
+    
+    # Two lines prompt
+    # git info apper if on a git repo
+    PS1=$(printf " ${green}$(.left_prompt):${red}$(.right_prompt)\n${blue}$git_info \n$last_command ")
+
+    
 }
 ####################################################
 .right_prompt(){
@@ -127,7 +131,8 @@ git config --global user.name andreaspano
 ###################################################
 # Generic alias 
 alias p="pwd"
-alias l="ls --color" 
+alias ls="ls --color" 
+alias l=ls
 alias r="rm -i"
 alias rf="rm -rf"
 alias h="htop -u nobody"
