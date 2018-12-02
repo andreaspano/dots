@@ -110,7 +110,7 @@ inside_git_repo="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
     
     # Two lines prompt
     # git info apper if on a git repo
-    PS1=$(printf " ${green}$(.left_prompt):${red}$(.right_prompt)\n${blue}$git_info \n$last_command ")
+    PS1=$(printf " ${green}$(.left_prompt):${red}$(.right_prompt)\n${blue}$git_info \n$last_command ${brown} ")
 
     
 }
@@ -133,7 +133,9 @@ git config --global user.name andreaspano
 alias p="pwd"
 alias ls="ls --color" 
 alias l=ls
-alias r="rm -i"
+alias ll="ls -al"
+alias rm="rm -i"
+alias r=rm
 alias rf="rm -rf"
 alias h="htop -u nobody"
 alias t="tmux new-session \; split-window -v \; split-window -h \; attach"
