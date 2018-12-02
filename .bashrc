@@ -144,6 +144,8 @@ alias add="git add"
 alias status="git status"
 alias push="git push"
 alias pull="git pull"
+alias merge="git merge"
+alias checkout="git checkout"
 ####################################################
 # Envir variables
 export VISUAL=vim
