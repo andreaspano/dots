@@ -148,6 +148,9 @@ alias push="git push"
 alias pull="git pull"
 alias merge="git merge"
 alias checkout="git checkout"
+###################################################
+# R alias
+alias r="rtichoke"
 ####################################################
 # Envir variables
 export VISUAL=vim
