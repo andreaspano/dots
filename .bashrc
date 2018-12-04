@@ -135,7 +135,6 @@ alias ls="ls --color"
 alias l=ls
 alias ll="ls -al"
 alias rm="rm -i"
-alias r=rm
 alias rf="rm -rf"
 alias h="htop -u nobody"
 alias pdf="evince"
