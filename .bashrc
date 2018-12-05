@@ -129,32 +129,11 @@ inside_git_repo="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
 git config --global user.email andrea.spano@quantide.com
 git config --global user.name andreaspano
 ###################################################
-# Generic alias 
-alias p="pwd"
-alias ls="ls --color" 
-alias l=ls
-alias ll="ls -al"
-alias rm="rm -i"
-alias rf="rm -rf"
-alias h="htop -u nobody"
-alias pdf="evince"
-alias t="tmux new-session \; split-window -v \; split-window -h \; attach"
-####################################################
-# Git alias
-alias commit="git commit"
-alias add="git add"
-alias status="git status"
-alias push="git push"
-alias pull="git pull"
-alias merge="git merge"
-alias checkout="git checkout"
-alias remove="git rm"
-alias move="git mv"
-###################################################
-# R alias
-alias r="rtichoke"
-####################################################
 # Envir variables
 export VISUAL=vim
 export EDITOR=vim
-
+####################################################
+# ,bash_aliases
+if [ -f ~/.bash_aliases ]; then
+. ~/.bash_aliases
+fi
