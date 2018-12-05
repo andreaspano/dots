@@ -148,6 +148,8 @@ alias push="git push"
 alias pull="git pull"
 alias merge="git merge"
 alias checkout="git checkout"
+alias remove="git rm"
+alias move="git mv"
 ###################################################
 # R alias
 alias r="rtichoke"
