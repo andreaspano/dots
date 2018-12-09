@@ -4,6 +4,7 @@ alias p="pwd"
 alias ls="ls --color" 
 alias l=ls
 alias ll="ls -al"
+alias lt="ls -ltr"
 alias rm="rm -i"
 alias rf="rm -rf"
 alias h="htop -u nobody"
