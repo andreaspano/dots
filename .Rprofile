@@ -3,6 +3,8 @@ is_interactive <-  interactive()
 
 makeActiveBinding(sym = 'd_', fun = devtools::document, env = globalenv())
 makeActiveBinding(sym = 'l_', fun = devtools::load_all, env = globalenv())
+makeActiveBinding(sym = 'i_', fun = devtools::install, env = globalenv())
+
 
 
 
@@ -28,5 +30,5 @@ if (is_interactive & no_rstudio  ){
     
 }
 
-options(prompt = 'R> ')
+options(prompt = ' >> ')
 
