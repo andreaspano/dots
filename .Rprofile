@@ -1,6 +1,12 @@
 no_rstudio <- !(Sys.getenv("RSTUDIO") == 1)
 is_interactive <-  interactive()
 
+makeActiveBinding(sym = 'd_', fun = devtools::document, env = globalenv())
+makeActiveBinding(sym = 'l_', fun = devtools::load_all, env = globalenv())
+
+
+
+
 if (is_interactive & no_rstudio  ){
     suppressPackageStartupMessages(require(colorout))
     setOutputColors(normal = 40, 
@@ -22,5 +28,5 @@ if (is_interactive & no_rstudio  ){
     
 }
 
-options(prompt = '=> ')
+options(prompt = 'R> ')
 
