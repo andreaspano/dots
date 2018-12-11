@@ -10,6 +10,8 @@ alias rf="rm -rf"
 alias h="htop -u nobody"
 alias pdf="evince"
 alias t="tmux new-session \; split-window -v \; split-window -h \; attach"
+alias grepi="grep -i"
+alias grepi3="grep -i -A3"
 # -----------------------------------------------------------------------------
 # Git alias
 alias commit="git commit"
