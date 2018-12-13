@@ -23,8 +23,8 @@ execute "set <M-m>=\em"
 imap <M-m> %>% 
 
 " <-  
-execute "set <M-a>=\ea"
-imap <M-a> <- 
+"execute "set <M-a>=\ea"
+"imap <M-a> <- 
 
 " function(){}  
 execute "set <M-f>=\ef"
@@ -37,7 +37,31 @@ imap <M-f> function() {  }
 
 nmap <cr> <Plug>RDSendLine
 vmap <cr> <Plug>REDSendSelection
-  
+
+" map  start R to  localheader R
+nmap <LocalLeader>R <Plug>RStart
+imap <LocalLeader>R <Plug>RStart
+vmap <LocalLeader>R <Plug>RStart
+
+" Map clear console to localheader L
+nmap <LocalLeader>L <Plug>RClearConsole
+imap <LocalLeader>L <Plug>RClearConsole
+vmap <LocalLeader>L <Plug>RClearConsole
+
+" Map comment to localheader C
+nmap <LocalLeader>c <Plug>RSimpleComment
+imap <LocalLeader>c <Plug>RSimpleComment
+vmap <LocalLeader>c <Plug>RSimpleComment
+
+nmap <LocalLeader>u <Plug>RSimpleUnComment
+imap <LocalLeader>u <Plug>RSimpleUnComment
+vmap <LocalLeader>u <Plug>RSimpleUnComment
+
+
+
+
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -101,6 +125,8 @@ set ai "Auto indent
 set si "Smart indent
 set nowrap "Wrap lines
 
+" Disable _ mapping to <- 
+let R_assign = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins via Vim-Plug 
@@ -117,5 +143,15 @@ Plug 'junegunn/vim-easy-align'
 " R Vim plugin
 Plug 'jalvesaq/Nvim-R'
 
+Plug 'roxma/nvim-completion-manager'
+Plug 'gaalcaras/ncm-R'
+
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+
+
 " Initialize plugin system
 call plug#end()
+
+
+
