@@ -30,4 +30,4 @@ if (is_interactive & no_rstudio  ){
     
 }
 
- options(prompt = ' ☠ ' )
+ options(prompt = ' =>  ' )
