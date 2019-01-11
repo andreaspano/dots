@@ -69,7 +69,8 @@ nmap  <C-w>2 :b2<cr>
 nmap  <C-w>3 :b3<cr>
 nmap  <C-w>v :ls<cr>:vertical sb 
 nmap  <C-w>h :ls<cr>:sb 
-nmap  <C-w>q :q<cr>
+nmap  <C-w>d :bd<cr>
+nmap  <C-w>t :ter<cr>
 
 
 
@@ -143,6 +144,9 @@ let R_assign = 0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins via Vim-Plug 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
 " To install any plugin just type vim command PlugInstall
 
 " Specify a directory for plugins
@@ -155,7 +159,7 @@ Plug 'junegunn/vim-easy-align'
 " R Vim plugin
 Plug 'jalvesaq/Nvim-R'
 
-Plug 'roxma/nvim-completion-manager'
+"Plug 'roxma/nvim-completion-manager'
 Plug 'gaalcaras/ncm-R'
 
 Plug 'ncm2/ncm2'
