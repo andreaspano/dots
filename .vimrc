@@ -165,6 +165,9 @@ Plug 'gaalcaras/ncm-R'
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 
+" markdown plugin
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " Initialize plugin system
 call plug#end()
