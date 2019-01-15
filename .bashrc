@@ -58,7 +58,7 @@ inside_git_repo="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
     if [ $is_git == "1" ]; then 
         git_project=$(.git_project)
         git_branch=$(.git_branch)
-        git_info="[ $git_project  -  $git_branch ] "
+        git_info="[$git_project-$git_branch] "
     else
         git_info=" "
     fi    
@@ -106,11 +106,12 @@ inside_git_repo="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
     git_info=$(.git_info)
     ####################################################
     # Promt version with left and right  
-    #PS1=$(printf "%*s\r%s\n$last_command "${brown} "$(tput cols)"  "  ${red}$(.right_prompt)   ${blue}$git_info "   "${green}$(.left_prompt)")
+    PS1=$(printf "%*s\r%s\n$last_command "${brown} "$(tput cols)"  "  ${red}$(.right_prompt)   ${blue}$git_info "   "${green}$(.left_prompt)")
     
     # Two lines prompt
     # git info apper if on a git repo
-    PS1=$(printf " ${green}$(.left_prompt):${red}$(.right_prompt)\n${blue}$git_info \n$last_command ${brown} ")
+    # does not work properly
+    #PS1=$(printf " ${green}$(.left_prompt):${red}$(.right_prompt)\n${blue}$git_info \n$last_command ${brown} ")
 
     
 }
