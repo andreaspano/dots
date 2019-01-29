@@ -25,5 +25,7 @@ alias remove="git rm"
 alias move="git mv"
 # ------------------------------------------------------------------------------
 # R alias
-alias r="rtichoke"
+alias r='radian'
 # ------------------------------------------------------------------------------
+# Python alias
+alias python=python3
