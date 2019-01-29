@@ -134,7 +134,11 @@ git config --global user.name andreaspano
 export VISUAL=vim
 export EDITOR=vim
 ####################################################
-# ,bash_aliases
+# bash_aliases
 if [ -f ~/.bash_aliases ]; then
 . ~/.bash_aliases
 fi
+####################################################
+# PATH
+PATH=$PATH:~/.local/bin
+
