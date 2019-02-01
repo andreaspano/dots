@@ -1,9 +1,6 @@
 PROMPT_COMMAND=.prompt # Func to gen PS1 after CMDs
 
 ##################################################
-# If set, Bash checks the window size after each command and, if necessary, updates the values of LINES and COLUMNS."
-# This is needed for right and left prompt showing corectly
-shopt -s checkwinsize
 ##################################################
 # Check last command result
 # if last command executed correctly prints a green 'V'
@@ -58,7 +55,7 @@ inside_git_repo="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
     if [ $is_git == "1" ]; then 
         git_project=$(.git_project)
         git_branch=$(.git_branch)
-        git_info="[ $git_project  -  $git_branch ] "
+        git_info="[$git_project-$git_branch] "
     else
         git_info=" "
     fi    
@@ -105,26 +102,12 @@ inside_git_repo="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
     # check git
     git_info=$(.git_info)
     ####################################################
-    # Promt version with left and right  
-    #PS1=$(printf "%*s\r%s\n$last_command "${brown} "$(tput cols)"  "  ${red}$(.right_prompt)   ${blue}$git_info "   "${green}$(.left_prompt)")
-    
-    # Two lines prompt
-    # git info apper if on a git repo
-    PS1=$(printf " ${green}$(.left_prompt):${red}$(.right_prompt)\n${blue}$git_info \n$last_command ${brown} ")
+    # simple prompt 
+    #PS1="${green}@\h ${red}\\w: ${blue}[\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)] \n$last_command \[\e[m\]"
+    PS1="${green}@\h ${red}\\w ${blue} $git_info  \n$last_command \[\e[m\]"
 
-    
 }
 ####################################################
-.right_prompt(){
-    RIGHT_PROMPT=$PWD
-    echo $RIGHT_PROMPT
-}
-####################################################
-.left_prompt() {
-    LEFT_PROMPT=" $USERNAME@$HOSTNAME "
-    echo $LEFT_PROMPT
-}
-###################################################
 # set git user and email
 git config --global user.email andrea.spano@quantide.com
 git config --global user.name andreaspano
@@ -133,7 +116,11 @@ git config --global user.name andreaspano
 export VISUAL=vim
 export EDITOR=vim
 ####################################################
-# ,bash_aliases
+# bash_aliases
 if [ -f ~/.bash_aliases ]; then
 . ~/.bash_aliases
 fi
+####################################################
+# PATH
+PATH=$PATH:~/.local/bin
+
