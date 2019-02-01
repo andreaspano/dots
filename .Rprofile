@@ -1,15 +1,13 @@
-no_rstudio <- !(Sys.getenv("RSTUDIO") == 1)
-is_interactive <-  interactive()
 
-makeActiveBinding(sym = 'd_', fun = devtools::document, env = globalenv())
-makeActiveBinding(sym = 'l_', fun = devtools::load_all, env = globalenv())
-makeActiveBinding(sym = 'i_', fun = devtools::install, env = globalenv())
+#makeActiveBinding(sym = 'd_', fun = devtools::document, env = globalenv())
+#makeActiveBinding(sym = 'l_', fun = devtools::load_all, env = globalenv())
+#makeActiveBinding(sym = 'i_', fun = devtools::install, env = globalenv())
 
-
+andrea_quantide <-  utils::person(given =  'Andrea', family = 'Spano', email = 'andrea.spano@quantide.com', role = c("aut", "cre"))
 
 
+if ( !(Sys.getenv("RSTUDIO") == 1) &  interactive()){
 
-if (is_interactive & no_rstudio  ){
     suppressPackageStartupMessages(require(colorout))
     setOutputColors(normal = 40, 
                     negnum = 209, 
@@ -30,4 +28,4 @@ if (is_interactive & no_rstudio  ){
     
 }
 
- options(prompt = ' =>  ' )
+options(prompt = "R > " )
