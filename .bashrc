@@ -104,7 +104,7 @@ inside_git_repo="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
     ####################################################
     # simple prompt 
     #PS1="${green}@\h ${red}\\w: ${blue}[\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)] \n$last_command \[\e[m\]"
-    PS1="${green}@\h ${red}\\w ${blue} $git_info  \n$last_command \[\e[m\]"
+    PS1="${green}\u@\h ${red}\\w ${blue} $git_info  \n$last_command \[\e[m\]"
 
 }
 ####################################################
