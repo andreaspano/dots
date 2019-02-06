@@ -3,7 +3,6 @@
 #makeActiveBinding(sym = 'l_', fun = devtools::load_all, env = globalenv())
 #makeActiveBinding(sym = 'i_', fun = devtools::install, env = globalenv())
 
-andrea_quantide <-  utils::person(given =  'Andrea', family = 'Spano', email = 'andrea.spano@quantide.com', role = c("aut", "cre"))
 
 
 if ( !(Sys.getenv("RSTUDIO") == 1) &  interactive()){
