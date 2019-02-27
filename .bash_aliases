@@ -14,15 +14,12 @@ alias grepi="grep -i"
 alias grepi3="grep -i -A3"
 # -----------------------------------------------------------------------------
 # Git alias
-alias commit="git commit"
-alias add="git add"
-alias status="git status"
-alias push="git push"
-alias pull="git pull"
-alias merge="git merge"
-alias checkout="git checkout"
-alias remove="git rm"
-alias move="git mv"
+alias gc="git commit"
+alias ga="git add"
+alias gs="git status"
+alias gp="git push"
+alias gl="git pull"
+alias gm="git merge"
 # ------------------------------------------------------------------------------
 # R alias
 alias r='radian'
