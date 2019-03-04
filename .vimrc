@@ -19,17 +19,14 @@ set number
 
 
 " %>%
-execute "set <M-m>=\em"
-imap <M-m> %>% 
+imap .p  %>%
 
 " <-  
-"execute "set <M-a>=\ea"
-"imap <M-a> <- 
+imap .a <-
+
 
 " function(){}  
-execute "set <M-f>=\ef"
-imap <M-f> function() {  } 
-
+imap .f function( ) { }
 
 " execute "set <a-cr>=\<esc>\<cr>"
 "nnoremap <a-cr> something
@@ -60,11 +57,11 @@ vmap <LocalLeader>u <Plug>RSimpleUnComment
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Radian 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let R_app = "radian"
-let R_cmd = "R"
-let R_hl_term = 0
-let R_args = []  " if you had set any
-let R_bracketed_paste = 1
+"let R_app = "radian"
+"let R_cmd = "R"
+"let R_hl_term = 0
+"let R_args = []  " if you had set any
+"let R_bracketed_paste = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
