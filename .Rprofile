@@ -25,6 +25,4 @@ if ( !(Sys.getenv("RSTUDIO") == 1) &  interactive()){
 
 options(prompt = "R> " )
 options(radian.editing.mode='vi', radian.color_scheme = "native")
-require(japala)
-require(colorout)
 
