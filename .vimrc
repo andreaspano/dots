@@ -62,8 +62,9 @@ vmap <LocalLeader>u <Plug>RSimpleUnComment
 "let R_hl_term = 0
 "let R_args = []  " if you had set any
 "let R_bracketed_paste = 1
-
-
+"let R_auto_scroll = 0 
+"let R_esc_term = 0
+set mouse=a
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Buffer Navigation
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
