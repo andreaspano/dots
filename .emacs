@@ -37,6 +37,7 @@ There are two things you can do about this warning:
  )
 
 
+;; markdown mode
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -44,6 +45,25 @@ There are two things you can do about this warning:
   :init (setq markdown-command "/usr/local/bin/multimarkdown"))
 
 
+;; emacs speaks statistics
+(use-package ess
+  :ensure t
+  :init (require 'ess-site))
+
+;; Tell emacs where is your personal elisp lib dir
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
+
+;; emacs speak shell
+;; (require 'essh)                                                   
+;;(defun essh-sh-hook ()                                             
+;;   (define-key sh-mode-map "\C-c\C-r" 'pipe-region-to-shell)        
+;;   (define-key sh-mode-map "\C-c\C-b" 'pipe-buffer-to-shell)        
+;;   (define-key sh-mode-map "\C-c\C-j" 'pipe-line-to-shell)          
+;;   (define-key sh-mode-map "\C-c\C-n" 'pipe-line-to-shell-and-step) 
+;;   (define-key sh-mode-map "\C-c\C-f" 'pipe-function-to-shell)      
+;;   (define-key sh-mode-map "\C-c\C-d" 'shell-cd-current-directory)) 
+;;(add-hook 'sh-mode-hook 'essh-sh-hook)
 
 ;; remove toolbar
 (tool-bar-mode -1)
@@ -64,4 +84,6 @@ There are two things you can do about this warning:
 (setq ess-use-auto-complete t)
 
 
-
+;; disable auto-save and auto-backup
+(setq auto-save-default nil)
+(setq make-backup-files nil)
