@@ -117,8 +117,8 @@ export VISUAL=vim
 export EDITOR=vim
 ####################################################
 # bash_aliases
-if [ -f ~/.bash_aliases ]; then
-. ~/.bash_aliases
+if [ -f $HOME/.bash_aliases ]; then
+. $HOME/.bash_aliases
 fi
 ####################################################
 # PATH
