@@ -30,6 +30,9 @@ alias python=python3
 # emacs alias
 alias e="emacs -nw" 
 # -----------------------------------------------------------------------------
+# Free office alias
+alias ppt="presentations18free"
+alias xls="planmaker18free"
 
 
 
