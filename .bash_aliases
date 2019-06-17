@@ -25,7 +25,7 @@ alias gm="git merge"
 alias r='radian'
 # ------------------------------------------------------------------------------
 # Python alias
-alias python=python3
+#alias python=python3
 # -----------------------------------------------------------------------------
 # emacs alias
 alias e="emacs -nw" 
