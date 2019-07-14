@@ -12,6 +12,7 @@ alias pdf="evince"
 alias t="tmux new-session \; split-window -v \; split-window -h \; attach"
 alias grepi="grep -i"
 alias grepi3="grep -i -A3"
+alias vl="vi `ls -tr | tail -1`" 
 # -----------------------------------------------------------------------------
 # Git alias
 alias gc="git commit"
@@ -33,6 +34,6 @@ alias e="emacs -nw"
 # Free office alias
 alias ppt="presentations18free"
 alias xls="planmaker18free"
-
+# -----------------------------------------------------------------------------
 
 
