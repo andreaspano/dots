@@ -33,6 +33,8 @@ alias e="emacs -nw"
 # Free office alias
 alias ppt="presentations18free"
 alias xls="planmaker18free"
-
+# -------------------------------------------------------------------------
+# Alias to specific files
+alias setting="vi ~/gdrive/personal/setting.txt"
 
 
