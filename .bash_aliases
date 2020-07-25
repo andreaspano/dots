@@ -38,5 +38,6 @@ alias xls="planmaker18free"
 # Alias to specific files
 alias setting="vi ~/gdrive/personal/setting.txt"
 # -----------------------------------------------------------------------------
-
+# Edit last creted 
+alias vl="vi `ls -tr | tail -1`"
 
