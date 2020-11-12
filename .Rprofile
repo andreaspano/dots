@@ -25,8 +25,11 @@ if ( !(Sys.getenv("RSTUDIO") == 1) &  interactive()){
 
 options(prompt = "R> " )
 options(radian.editing.mode='vi', radian.color_scheme = "native")
-remote_cran  <- 'https://cran.wu.ac.at/'
-local_cran <- 'file:///data/minicran/' 
 
-i <- 888
+# cran 
+options(repos=structure(c(CRAN="https://cloud.r-project.org")))
+
+
+
+
 

@@ -34,15 +34,15 @@ alias e="emacs -nw"
 # Free office alias
 alias ppt="presentations18free"
 alias xls="planmaker18free"
+alias doc="textmaker18free"
 # -------------------------------------------------------------------------
 # Alias to specific files
-alias setting="vi ~/gdrive/personal/setting.txt"
+alias setting="vi ~/gdrive/personal/settings.txt"
 # -----------------------------------------------------------------------------
 # Edit last creted 
 alias vl="vi `ls -tr | tail -1`"
 # -----------------------------------------------------------------------------
-# s
-R Studio package manager 
+#R Studio package manager 
 alias rspm='/opt/rstudio-pm/bin/rspm'
 
 
