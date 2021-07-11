@@ -131,6 +131,6 @@ PATH=$PATH:~/.local/bin
 if [ -f $HOME/.hosts ]; then
 . $HOME/.hosts
 fi
-
-
-
+####################################################
+# set the text scolr to brown 
+#echo -ne "\033]10;#ffa500\007"
