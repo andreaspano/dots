@@ -1,7 +1,33 @@
 PROMPT_COMMAND=.prompt # Func to gen PS1 after CMDs
 
+
+#echo -ne "\033]0;${USER}@${HOSTNAME}\007"
+
+.title(){
+   # change the title of the current window or tab
+ echo -ne "\033]0;${USER}@${HOSTNAME}\007" 
+}
+
+.title
+
+ssh()
+{
+   /usr/bin/ssh "$@"
+   # revert the window title after the ssh command
+   title $USER@$HOST
+}
+
+su()
+{
+   /bin/su "$@"
+   # revert the window title after the su command
+   title $USER@$HOST
+}
+
+
+
 ##################################################
-##################################################
+
 # Check last command result
 # if last command executed correctly prints a green 'V'
 # otherwise, in case of error, a red 'X'
@@ -104,7 +130,10 @@ inside_git_repo="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
     ####################################################
     # simple prompt 
     #PS1="${green}@\h ${red}\\w: ${blue}[\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)] \n$last_command \[\e[m\]"
-    PS1="${green}\u@\h ${red}\\w ${blue} $git_info  \n$last_command \[\e[m\]"
+    #PS1="${green}\u@\h ${red}\\w ${blue} $git_info  \n$last_command \[\e[m\]"
+    PS1="${red}\\w ${blue} $git_info  \n$last_command \[\e[m\]"
+
+
 
 }
 ####################################################
@@ -134,3 +163,4 @@ fi
 ####################################################
 # set the text scolr to brown 
 #echo -ne "\033]10;#ffa500\007"
+

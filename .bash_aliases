@@ -42,8 +42,6 @@ alias setting="vi ~/gdrive/personal/settings.txt"
 # Edit last creted 
 alias vl="vi `ls -tr | tail -1`"
 # -----------------------------------------------------------------------------
-#R Studio package manager 
-alias rspm='/opt/rstudio-pm/bin/rspm'
 
 
 
