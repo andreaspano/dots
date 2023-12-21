@@ -29,7 +29,7 @@ alias r='radian'
 #alias python=python3
 # -----------------------------------------------------------------------------
 # emacs alias
-alias e="emacs -nw" 
+#alias e="emacs -nw" 
 # -----------------------------------------------------------------------------
 # Free office alias
 alias ppt="presentations18free"
