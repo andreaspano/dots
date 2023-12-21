@@ -42,6 +42,7 @@ alias setting="vi ~/gdrive/personal/settings.txt"
 # Edit last creted 
 alias vl="vi `ls -tr | tail -1`"
 # -----------------------------------------------------------------------------
-
+# list file on google drive
+alias lg="gio list -a 'standard::display-name'"
 
 
