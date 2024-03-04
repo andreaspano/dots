@@ -1,0 +1,88 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "description": "R Build Docs",
+        "key": "ctrl+shift+d",
+        "command": "r.document",
+        "when": "resourceLangId == 'r'"
+    },
+    {
+        "description": "R Pipe Operator",
+        "key": "ctrl+shift+m",
+        "command": "type",
+        "args": {"text": " |> "},
+        "when": "editorLangId == r && editorTextFocus || editorLangId == rmd && editorTextFocus",
+    },
+    {
+        "description": "R Assignment Arrow",
+        "key": "alt+-",
+        "command": "type",
+        "args": {"text": " <- "},
+        "when": "editorLangId == r && editorTextFocus || editorLangId == rmd && editorTextFocus",
+    },
+    {
+        "description": "R Build Source Package",
+        "key": "ctrl+shift+b",
+        "command": "r.build",
+        "when": "resourceLangId == 'r'"
+    },
+    {
+        "description": "R Install Package",
+        "key": "ctrl+shift+i",
+        "command": "r.runCommand",
+        "args": "devtools::install(quick = FALSE, keep_source = TRUE, upgrade = FALSE)",
+        "when": "resourceLangId == 'r'"
+    },
+    {
+        "description": "R Create Reprex",
+        "key": "ctrl+shift+x",
+        "command": "r.runCommand",
+        "args": "reprex::reprex()",
+        "when": "resourceLangId == 'r'"
+    },
+    {
+        "key": "ctrl+shift+a",
+        "command": "editor.action.formatSelection",
+        "when": "editorHasDocumentSelectionFormattingProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+k ctrl+f",
+        "command": "-editor.action.formatSelection",
+        "when": "editorHasDocumentSelectionFormattingProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+oem_period",
+        "command": "-editor.action.quickFix",
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+oem_period",
+        "command": "workbench.action.showAllSymbols"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "-workbench.action.showAllSymbols"
+    },
+    {
+      "key": "ctrl+shift+d",
+      "command": "-workbench.view.debug",
+      "when": "viewContainer.workbench.view.debug.enabled"
+    },
+    {
+      "key": "ctrl+shift+x",
+      "command": "-workbench.view.extensions",
+      "when": "viewContainer.workbench.view.extensions.enabled"
+    },
+    {
+      "description": "R Update Packages",
+      "key": "ctrl+shift+u",
+      "command": "r.runCommand",
+      "args": "vsCodeSnippets::update_R_packages()",
+      "when": "resourceLangId == 'r'"
+    },
+    {
+      "key": "ctrl+shift+u",
+      "command": "-workbench.action.output.toggleOutput",
+      "when": "workbench.panel.output.active"
+    }
+]
