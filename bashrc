@@ -155,6 +155,7 @@ export HOSTALIASES=~/.hosts
 ####################################################
 # PATH
 PATH=$PATH:~/.local/bin
+PATH=$PATH:~/gdrive/personal/bin
 ####################################################
 # server aliases 
 if [ -f $HOME/.hosts ]; then
@@ -179,3 +180,7 @@ case ":$PATH:" in
 esac
 
 # <<< juliaup initialize <<<
+
+
+# avoid WARN when ssh -X
+export NO_AT_BRIDGE=1
