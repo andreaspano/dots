@@ -1,3 +1,17 @@
 {
-    "r.rterm.linux": "/usr/local/bin/radian"
+	"r.bracketedPaste": true, 
+
+	"r.rterm.option": [
+        	"--no-save",
+	        "--no-restore"
+    	],
+
+	"r.plot.useHttpgd": true,
+
+	"r.session.viewers.viewColumn": {
+        "plot": "Active",
+        "viewer": "Active",
+        "view": "Active",
+        "helpPanel": "Active"
+    }
 }
