@@ -1,3 +1,5 @@
+//settings.json file
+//links to ~/.config/Code/User/settings.json
 {
 	"r.bracketedPaste": true, 
 
@@ -13,5 +15,9 @@
         "viewer": "Active",
         "view": "Active",
         "helpPanel": "Active"
-    }
+	},
+	"files.associations": {
+		"*.py": "python"
+	},
+	"python.createEnvironment.trigger": "off"
 }

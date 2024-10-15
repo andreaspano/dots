@@ -166,21 +166,6 @@ fi
 #echo -ne "\033]10;#ffa500\007"
 
 
-# >>> juliaup initialize >>>
-
-# !! Contents within this block are managed by juliaup !!
-
-case ":$PATH:" in
-    *:/home/andrea/.juliaup/bin:*)
-        ;;
-
-    *)
-        export PATH=/home/andrea/.juliaup/bin${PATH:+:${PATH}}
-        ;;
-esac
-
-# <<< juliaup initialize <<<
-
 
 # avoid WARN when ssh -X
 export NO_AT_BRIDGE=1

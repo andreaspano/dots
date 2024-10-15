@@ -39,10 +39,14 @@ alias doc="textmaker18free"
 # Alias to specific files
 alias setting="vi ~/gdrive/personal/settings.txt"
 # -----------------------------------------------------------------------------
-# Edit last creted 
+# Edit last created 
 alias vl="vi `ls -tr | tail -1`"
 # -----------------------------------------------------------------------------
 # list file on google drive
 alias lg="gio list -a 'standard::display-name'"
+#-----------------------------------------------------------------------------
+# shutdown and reboot 
+alias off="shutdown now"
+alias reb="reboot now"
 
 
