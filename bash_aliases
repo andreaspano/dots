@@ -48,5 +48,7 @@ alias lg="gio list -a 'standard::display-name'"
 # shutdown and reboot 
 alias off="shutdown now"
 alias reb="reboot now"
-
+#-----------------------------------------------------------------------------
+# python3
+alias P="python3"
 

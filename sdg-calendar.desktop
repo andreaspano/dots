@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=sdg-calendar
+Exec=/home/andrea/calendar.sh
+Comment=
+Terminal=false
+PrefersNonDefaultGPU=false
+Icon=google-calendar
+Type=Application

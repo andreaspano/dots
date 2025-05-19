@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=sdg-gmail
+Exec=/home/andrea/gmail.sh
+Comment=
+Terminal=false
+PrefersNonDefaultGPU=false
+Icon=gmail
+Type=Application

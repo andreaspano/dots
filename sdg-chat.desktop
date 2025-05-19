@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=sdg-chat
+Exec=/home/andrea/chat.sh
+Comment=
+Terminal=false
+PrefersNonDefaultGPU=false
+Icon=gmail
+Type=Application

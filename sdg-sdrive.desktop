@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=sdg-sdrive
+Exec=/home/andrea/sdrive.sh
+Comment=
+Terminal=false
+PrefersNonDefaultGPU=false
+Icon=google-drive
+Type=Application
