@@ -1,6 +1,6 @@
 #!/bin/bash
-var="- Chat"
-if wmctrl -l | grep -i i $var; then
+var=" Chat"
+if wmctrl -l | grep -i $var; then
     wmctrl -a $var
 else
     #google-chrome --new-window https://mail.google.com

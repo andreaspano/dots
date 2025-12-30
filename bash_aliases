@@ -37,7 +37,7 @@ alias xls="planmaker18free"
 alias doc="textmaker18free"
 # -------------------------------------------------------------------------
 # Alias to specific files
-alias setting="vi ~/gdrive/personal/settings.txt"
+alias setting="vi ~/adrive/personal/andrea.txt"
 # -----------------------------------------------------------------------------
 # Edit last created 
 alias vl="vi `ls -tr | tail -1`"
@@ -46,7 +46,7 @@ alias vl="vi `ls -tr | tail -1`"
 alias lg="gio list -a 'standard::display-name'"
 #-----------------------------------------------------------------------------
 # shutdown and reboot 
-alias off="shutdown now"
+alias off="poweroff"
 alias reb="reboot now"
 #-----------------------------------------------------------------------------
 # python3

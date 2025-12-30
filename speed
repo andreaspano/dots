@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/usr/bin/env bash
 # ascii_ping_hdots.sh — barplot orizzontale a scorrimento verticale con puntini
 # Uso: ./ascii_ping_hdots.sh [host] [larghezza_barra] [altezza]
 # Esempio: ./ascii_ping_hdots.sh google.com 60 20
