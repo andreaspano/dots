@@ -19,5 +19,7 @@
 	"files.associations": {
 		"*.py": "python"
 	},
-	"python.createEnvironment.trigger": "off"
+	"python.createEnvironment.trigger": "off",
+	"chat.viewSessions.orientation": "stacked",
+	"markdown.preview.scrollEditorWithPreview": false
 }
