@@ -1,3 +1,12 @@
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Terminal title to file name
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set title
+set titlestring=%t%m
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Row number 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -13,59 +22,7 @@ set number
 " Split Vertical
 "map v :split<enter>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => R short cuts   
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-" %>%
-imap .p  %>%
-
-" <-  
-imap .a <-
-
-
-" function(){}  
-imap .f function( ) { }
-
-" execute "set <a-cr>=\<esc>\<cr>"
-"nnoremap <a-cr> something
-"nmap <a-cr> <Plug>RDSendLine
-
-nmap <cr> <Plug>RDSendLine
-vmap <cr> <Plug>REDSendSelection
-
-" map  start R to  localheader R
-nmap <LocalLeader>R <Plug>RStart
-imap <LocalLeader>R <Plug>RStart
-vmap <LocalLeader>R <Plug>RStart
-
-" Map clear console to localheader L
-nmap <LocalLeader>L <Plug>RClearConsole
-imap <LocalLeader>L <Plug>RClearConsole
-vmap <LocalLeader>L <Plug>RClearConsole
-
-" Map comment to localheader C
-nmap <LocalLeader>c <Plug>RSimpleComment
-imap <LocalLeader>c <Plug>RSimpleComment
-vmap <LocalLeader>c <Plug>RSimpleComment
-
-nmap <LocalLeader>u <Plug>RSimpleUnComment
-imap <LocalLeader>u <Plug>RSimpleUnComment
-vmap <LocalLeader>u <Plug>RSimpleUnComment
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Radian 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let R_app = "radian"
-let R_cmd = "R"
-"let R_hl_term = 0
-"let R_args = []  " if you had set any
-"let R_bracketed_paste = 1
-"let R_auto_scroll = 0 
-"let R_esc_term = 0
-"set mouse=a ... mouse visual mode in vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Buffer Navigation
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap  <C-w>e :e 
@@ -146,8 +103,6 @@ set ai "Auto indent
 set si "Smart indent
 set nowrap "Wrap lines
 
-" Disable _ mapping to <- 
-let R_assign = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins via Vim-Plug 

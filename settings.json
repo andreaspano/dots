@@ -21,5 +21,14 @@
 	},
 	"python.createEnvironment.trigger": "off",
 	"chat.viewSessions.orientation": "stacked",
-	"markdown.preview.scrollEditorWithPreview": false
+	"markdown.preview.scrollEditorWithPreview": false,
+	"liveServer.settings.donotShowInfoMsg": true,
+	"github.copilot.enable": {
+		"*": true,
+		"plaintext": false,
+		"markdown": false,
+		"scminput": false
+	},
+	"chat.sendElementsToChat.attachImages": false,
+	"python.REPL.enableREPLSmartSend": false
 }
