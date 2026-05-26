@@ -100,13 +100,25 @@ su() {
   # fast check
   git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return 0
 
-  local top project branch
-  top="$(git rev-parse --show-toplevel 2>/dev/null)" || return 0
-  project="$(basename "$top")"
+  local branch
   branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)" || branch="detached"
 
-  printf '[%s-%s] ' "$project" "$branch"
+  printf '[%s] ' "$branch"
 }
+
+
+.venv_info() {
+  local venv
+
+  venv="$(find . -maxdepth 2 -name pyvenv.cfg -exec dirname {} \; 2>/dev/null | head -n1)" || return 0
+  [[ -n "$venv" ]] || return 0
+
+  printf '[%s] ' "$(basename "$venv")"
+}
+
+#=========================
+# Prompt 
+#=========================
 
 .prompt() {
   # MUST be first
@@ -115,14 +127,16 @@ su() {
   # PS1-safe colors
   local Red='\[\e[0;31m\]'
   local Blu='\[\e[0;34m\]'
+  local Grn='\[\e[0;92m\]'
   local Reset='\[\e[0m\]'
 
   local last git
   last="$(.last_command "$EXIT")"
   git="$(.git_info)"
+  venv="$(.venv_info)"
 
   # End with Reset so input starts clean
-  PS1="${Red}\\w ${Blu}${git}\n${last}${Reset}"
+  PS1="${Red}\w ${Blu}${git}${Grn}${venv}${Reset}\n${last}"
 }
 
 # =========================
@@ -177,23 +191,14 @@ if [ -f "$HOME/.hosts" ]; then
 fi
 
 # =========================
-# fzf history runner
+# functions
 # =========================
-source ~/.fun-z.sh
+source ~/dev/dots/funs.sh
 # =========================
-# Ollama Bash Assistant
-# =========================
-source ~/.fun-ai.sh
-# =========================
-# bashgpt
+# keys
 # =========================
 source ~/adrive/keys/openai_key
-source ~/.fun-gpt.sh
-# =========================
-# bashgpt
-# =========================
 source ~/adrive/keys/gemini_key
-source ~/.fun-gemini.sh
 
 
 
