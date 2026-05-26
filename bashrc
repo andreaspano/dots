@@ -6,6 +6,11 @@
 PROMPT_COMMAND=.prompt
 
 # =========================
+# functions
+# =========================
+source ~/dev/dots/funs.sh
+
+# =========================
 # Terminal title (GNOME Terminal / xterm compatible)
 # =========================
 .title() {
@@ -107,14 +112,6 @@ su() {
 }
 
 
-.venv_info() {
-  local venv
-
-  venv="$(find . -maxdepth 2 -name pyvenv.cfg -exec dirname {} \; 2>/dev/null | head -n1)" || return 0
-  [[ -n "$venv" ]] || return 0
-
-  printf '[%s] ' "$(basename "$venv")"
-}
 
 #=========================
 # Prompt 
@@ -133,7 +130,7 @@ su() {
   local last git
   last="$(.last_command "$EXIT")"
   git="$(.git_info)"
-  venv="$(.venv_info)"
+  venv="$(venv_info)"
 
   # End with Reset so input starts clean
   PS1="${Red}\w ${Blu}${git}${Grn}${venv}${Reset}\n${last}"
@@ -190,10 +187,6 @@ if [ -f "$HOME/.hosts" ]; then
   . "$HOME/.hosts"
 fi
 
-# =========================
-# functions
-# =========================
-source ~/dev/dots/funs.sh
 # =========================
 # keys
 # =========================

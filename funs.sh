@@ -405,3 +405,19 @@ activate_venv() {
 
   source "$venv/bin/activate"
 }
+# venv info function
+venv_info() {
+  local venv active=0
+
+  venv="$(find . -maxdepth 2 -name pyvenv.cfg -print -quit 2>/dev/null)"
+  [[ -n "$venv" ]] || return 0
+
+  venv="$(basename "$(dirname "$venv")")"
+
+  # venv attivo?
+  if [[ -n "$VIRTUAL_ENV" && "$(basename "$VIRTUAL_ENV")" == "$venv" ]]; then
+    active=1
+  fi
+
+  printf "[%s, %d]\n" "$venv" "$active"
+}
