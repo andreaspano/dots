@@ -66,8 +66,14 @@ fi
 }
 
 ssh() {
-  # Se ssh viene usato con un comando remoto, non tocchiamo nulla
-  if (( $# > 1 )); then
+  # Pass through if any options or remote command are given
+  local has_option=0
+  for arg in "$@"; do
+    case "$arg" in
+      -*) has_option=1; break ;;
+    esac
+  done
+  if (( has_option || $# > 1 )); then
     command /usr/bin/ssh "$@"
     return $?
   fi
@@ -117,8 +123,15 @@ su() {
 
 
 #=========================
-# Prompt 
+# Prompt
 #=========================
+
+# Fallback: defined here if not provided by fun*.sh
+if ! declare -f venv_info >/dev/null 2>&1; then
+  venv_info() {
+    [ -n "$VIRTUAL_ENV" ] && printf '(%s) ' "$(basename "$VIRTUAL_ENV")"
+  }
+fi
 
 .prompt() {
   # MUST be first
@@ -135,6 +148,12 @@ su() {
   git="$(.git_info)"
   venv="$(venv_info)"
 
+  # Different prompt when connected via SSH
+  if [[ -n "$SSH_CONNECTION" ]]; then
+    PS1='\[\e[1;31m\][MUTOLO]\[\e[0m\] \u@\h:\w\$ '
+    return
+  fi
+
   # End with Reset so input starts clean
   PS1="${Red}\w ${Blu}${git}${Grn}${venv}${Reset}\n${last}"
 }
@@ -143,8 +162,8 @@ su() {
 # Git identity (only if git exists)
 # =========================
 if command -v git >/dev/null 2>&1; then
-  git config --global user.email "andrea@spano.it"
-  git config --global user.name "andreaspano"
+  [ "$(git config --global user.email)" = "andrea@spano.it" ] || git config --global user.email "andrea@spano.it"
+  [ "$(git config --global user.name)" = "andreaspano" ] || git config --global user.name "andreaspano"
 fi
 
 # =========================
@@ -186,17 +205,14 @@ if [ -f "$HOME/.bash_aliases" ]; then
 fi
 
 export HOSTALIASES="$HOME/.hosts"
-if [ -f "$HOME/.hosts" ]; then
-  . "$HOME/.hosts"
-fi
 
 # =========================
 # keys
 # =========================
-source ~/adrive/keys/openai_key
-source ~/adrive/keys/gemini_key
-source ~/adrive/keys/deepseek_key
-source ~/adrive/keys/anthropic_key
+[ -f ~/adrive/keys/openai_key ]    && source ~/adrive/keys/openai_key
+[ -f ~/adrive/keys/gemini_key ]    && source ~/adrive/keys/gemini_key
+[ -f ~/adrive/keys/deepseek_key ]  && source ~/adrive/keys/deepseek_key
+#[ -f ~/adrive/keys/anthropic_key ] && source ~/adrive/keys/anthropic_key
 
 # noevim
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
@@ -204,7 +220,7 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 export OLLAMA_API_BASE=http://mutolo:11434
 
-# Different prompt/color when connected via SSH
-if [[ -n "$SSH_CONNECTION" ]]; then
-    export PS1='\[\e[1;31m\][MUTOLO]\[\e[0m\] \u@\h:\w\$ '
-fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

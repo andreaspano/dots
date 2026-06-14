@@ -54,11 +54,8 @@ alias a='activate_venv'
 alias eng="aider  --model deepseek/deepseek-v4-flash --no-stream  --no-show-model-warnings --no-auto-commits --yes-always"
 alias arc="aider --architect --model deepseek/deepseek-v4-pro  --editor-model deepseek/deepseek-v4-flash --no-stream --no-show-model-warnings"
 
-# Recommended: Claude Sonnet (fast + capable)
-alias sonnet="aider  --model anthropic/claude-sonnet-4-5-20250929 --no-stream  --no-show-model-warnings --no-auto-commits --yes-always"
-alias opus="aider  --model  claude-opus-4-5 --no-stream  --no-show-model-warnings --no-auto-commits --yes-always"
-alias haiku="aider  --model  claude-haiku-4-5 --no-stream  --no-show-model-warnings --no-auto-commits --yes-always"
-
+# Claude
+alias clabare="claude --bare"
 
 
 

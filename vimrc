@@ -25,20 +25,8 @@ set number
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Buffer Navigation
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap  <C-w>e :e 
-nmap  <C-w>l :ls<cr>
-nmap  <C-w><Right> :bn<cr>
-nmap  <C-w><Left>  :bp<cr>
-nmap  <C-w>1 :b1<cr>
-nmap  <C-w>2 :b2<cr>
-nmap  <C-w>3 :b3<cr>
-nmap  <C-w>v :ls<cr>:vertical sb 
-nmap  <C-w>h :ls<cr>:sb 
-nmap  <C-w>d :bd<cr>
-nmap  <C-w>t :ter<cr>
-
-
-
+nnoremap <C-Left> gt
+nnoremap <C-Right> gT
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -104,6 +92,8 @@ set si "Smart indent
 set nowrap "Wrap lines
 
 
+
+set term=xterm-256color
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins via Vim-Plug 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
