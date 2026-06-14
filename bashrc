@@ -8,7 +8,10 @@ PROMPT_COMMAND=.prompt
 # =========================
 # functions
 # =========================
-source ~/dev/dots/funs.sh
+for f in ~/dev/dots/fun*.sh; do
+    [ -f "$f" ] && source "$f"
+done
+
 
 # =========================
 # Terminal title (GNOME Terminal / xterm compatible)
