@@ -192,6 +192,16 @@ fi
 # =========================
 source ~/adrive/keys/openai_key
 source ~/adrive/keys/gemini_key
+source ~/adrive/keys/deepseek_key
+source ~/adrive/keys/anthropic_key
+
+# noevim
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 
+export OLLAMA_API_BASE=http://mutolo:11434
 
+# Different prompt/color when connected via SSH
+if [[ -n "$SSH_CONNECTION" ]]; then
+    export PS1='\[\e[1;31m\][MUTOLO]\[\e[0m\] \u@\h:\w\$ '
+fi
