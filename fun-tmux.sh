@@ -9,7 +9,7 @@ t4() {
   tmux split-window -h -t "$SESSION"
   tmux split-window -v -t "$SESSION"
   tmux select-pane -t "$first_pane"
-  tmux send-keys -t "$first_pane" "claude --bare" Enter
+  tmux send-keys -t "$first_pane" "claude" Enter
   sleep 2 && tmux send-keys -t "$first_pane" Enter &
 
   tmux send-keys -t "$SESSION.3" "source ./.venv/bin/activate" Enter
