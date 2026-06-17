@@ -3,8 +3,11 @@
 **/.venv/
 **/.git/
 **/__init__.py
-**/.config
-**/.cache
-/R/
-/snap/
-/.*/
+
+/home/andrea/.*
+/home/andrea/snap/
+/home/andrea/R
+/home/andrea/Downloads
+
+
+
