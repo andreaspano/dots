@@ -1,6 +1,9 @@
 # dots
 dot files
 
+i file .desktop devono essere copiati in ~/.local/share/applications
+
+
 # todo 
 fholgado/minibufexpl.vim 
 fir a quick switch between buffes
