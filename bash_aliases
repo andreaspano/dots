@@ -44,7 +44,7 @@ alias reb="reboot now"
 alias P="python3"
 #-----------------------------------------------------------------------------
 # backup
-alias bkp="/home/andrea/adrive/bkp.sh"
+#alias bkp="/home/andrea/adrive/bkp.sh"
 #----------------------------------------------------------------------------
 # venv 
 alias venv="python3 -m venv .venv"
