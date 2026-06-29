@@ -27,6 +27,16 @@ if JAIL_ROOT:
             # Overshot from deeper inside (e.g. absolute path or multiple
             # "../../.."): clamp back to the root rather than refusing.
             path = JAIL_ROOT
-        return _orig_enter_dir(self, path, history=history)
+        result = _orig_enter_dir(self, path, history=history)
+        # Tab.pathway is what both the parent-directory column and the
+        # titlebar breadcrumbs read from (via at_level() and directly,
+        # respectively), so trimming everything above JAIL_ROOT out of it
+        # hides those ancestors from view, not just from navigation.
+        self.pathway = tuple(
+            p for p in self.pathway
+            if os.path.realpath(p.path) == JAIL_ROOT
+            or os.path.realpath(p.path).startswith(JAIL_ROOT + os.sep)
+        )
+        return result
 
     Tab.enter_dir = _jailed_enter_dir
