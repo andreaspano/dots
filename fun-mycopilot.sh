@@ -1,6 +1,6 @@
-t4() {
- 
- SESSION="T4-$(basename "$PWD")"
+cpstart() {
+
+ SESSION="MyCopilot-$(basename "$PWD")"
 
  if ! tmux has-session -t "$SESSION" 2>/dev/null; then
   tmux new-session -d -s "$SESSION"
@@ -9,7 +9,7 @@ t4() {
   tmux split-window -h -p 60 -t "$SESSION"
   tmux split-window -v -t "$SESSION"
   tmux select-pane -t "$first_pane"
-  tmux send-keys -t "$first_pane" "claude" Enter
+  tmux send-keys -t "$first_pane" "copilot" Enter
   sleep 2 && tmux send-keys -t "$first_pane" Enter &
 
   tmux send-keys -t "$SESSION.2" "rgr" Enter
@@ -18,4 +18,8 @@ t4() {
  fi
 
  tmux attach -t "$SESSION"
+}
+
+cpkill() {
+ tmux kill-session -t "MyCopilot-$(basename "$PWD")"
 }

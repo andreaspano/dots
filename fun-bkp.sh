@@ -21,7 +21,7 @@ bkp() {
   local LOG_FILE="/home/andrea/.log.bkp"
   local SSH_KEY="$HOME/.ssh/id_rsa"
   local KEEP_BACKUPS=3
-  local ASSUMED_SPEED_MBPS=50
+  local ASSUMED_SPEED_MBPS=100
 
   local TIMESTAMP
   local REMOTE_DIR
