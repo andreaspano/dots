@@ -16,5 +16,5 @@ rgr() {
     ln -s "$HOME/dev/dots/jail.py" "$plugin_link"
   fi
 
-  RANGER_JAIL_ROOT="$start_dir" ranger "$start_dir"
+  RANGER_JAIL_ROOT="$start_dir" ranger --cmd="set show_hidden true" "$start_dir"
 }
