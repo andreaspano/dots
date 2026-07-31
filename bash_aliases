@@ -46,10 +46,6 @@ alias P="python3"
 # backup
 #alias bkp="/home/andrea/adrive/bkp.sh"
 #----------------------------------------------------------------------------
-# venv 
-alias venv="python3 -m venv .venv"
-alias a='activate_venv'
-#------------------------------------------------------------------------------
 # aider
 alias eng="aider  --model deepseek/deepseek-v4-flash --no-stream  --no-show-model-warnings --no-auto-commits --yes-always"
 alias arc="aider --architect --model deepseek/deepseek-v4-pro  --editor-model deepseek/deepseek-v4-flash --no-stream --no-show-model-warnings"
