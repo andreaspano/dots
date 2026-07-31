@@ -133,12 +133,6 @@ activate_venv() {
   git="$(.git_info)"
   venv="$(venv_info)"
 
-  # Different prompt when connected via SSH
-  if [[ -n "$SSH_CONNECTION" ]]; then
-    PS1='\[\e[1;31m\][MUTOLO]\[\e[0m\] \u@\h:\w\$ '
-    return
-  fi
-
   # End with Reset so input starts clean
   PS1="${Red}\w ${Blu}${git}${Grn}${venv}${Reset}\n${last}"
 }
