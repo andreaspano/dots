@@ -102,21 +102,6 @@ if ! declare -f venv_info >/dev/null 2>&1; then
   }
 fi
 
-# Used by `alias a` in ~/.bash_aliases: activate the nearest .venv,
-# searching the current directory and then upwards.
-activate_venv() {
-  local dir="$PWD"
-  while [ -n "$dir" ]; do
-    if [ -f "$dir/.venv/bin/activate" ]; then
-      . "$dir/.venv/bin/activate"
-      return 0
-    fi
-    [ "$dir" = "/" ] && break
-    dir="$(dirname "$dir")"
-  done
-  echo "activate_venv: no .venv found in $PWD or any parent" >&2
-  return 1
-}
 
 .prompt() {
   # MUST be first
