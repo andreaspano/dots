@@ -1,6 +1,18 @@
 # =========================
 # ~/.bashrc (clean, robust)
 # =========================
+# This is the ONLY config file with real content.
+# ~/.bash_profile is a 2-line shim that sources this file for login shells.
+# There is deliberately no ~/.profile (bash ignores it once ~/.bash_profile
+# exists); a backup of the old one is at ~/.profile.bak.
+
+# If not running interactively, do nothing.
+# REQUIRED: sshd sources ~/.bashrc for non-interactive remote commands, and any
+# byte printed here (e.g. .title below) corrupts scp / sftp / rsync transfers.
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 # ----- Prompt hook -----
 PROMPT_COMMAND=.prompt
@@ -23,68 +35,25 @@ done
 .title
 
 # =========================
-# GNOME Terminal: read profile colors for exact restore
+# History
 # =========================
-.gt_profile_uuid() {
-  # default profile UUID
-  gsettings get org.gnome.Terminal.ProfilesList default 2>/dev/null | tr -d "'"
-}
-
-.gt_init_profile_colors() {
-  local uuid schema
-  uuid="$(.gt_profile_uuid)"
-  [ -n "$uuid" ] || return 0
-
-  schema="org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${uuid}/"
-
-  # gsettings returns strings like: rgb(255,255,255) OR 'rgb(255,255,255)' depending on version
-  _GT_FG="$(gsettings get "$schema" foreground-color 2>/dev/null | tr -d "'")"
-  _GT_CURSOR="$(gsettings get "$schema" cursor-background-color 2>/dev/null | tr -d "'")"
-
-  # safe fallbacks
-  [ -n "$_GT_FG" ] || _GT_FG="rgb(255,255,255)"
-  [ -n "$_GT_CURSOR" ] || _GT_CURSOR="rgb(255,255,255)"
-}
-
-if command -v gsettings >/dev/null 2>&1; then
-  .gt_init_profile_colors
-fi
+shopt -s histappend      # append instead of overwriting (multiple terminals)
+shopt -s checkwinsize
+HISTSIZE=10000
+HISTFILESIZE=20000
+HISTCONTROL=ignoreboth   # skip duplicates and lines starting with a space
+HISTTIMEFORMAT='%F %T '
 
 # =========================
-# SSH wrapper: change ONLY foreground & cursor, restore exactly
+# Completion
 # =========================
-# --- ripristino colori esatti del profilo GNOME Terminal ---
-# Colore "REMOTE" (solo testo) usando ANSI standard
-.ssh_colors_on() {
-  printf '\e[38;5;48m'   # testo verde-acqua (256 colors)
-  # oppure semplice verde: printf '\e[0;32m'
-}
-
-.ssh_colors_off() {
-  # reset standard del testo al default del profilo
-  printf '\e[0m\e[39m'
-}
-
-ssh() {
-  # Pass through if any options or remote command are given
-  local has_option=0
-  for arg in "$@"; do
-    case "$arg" in
-      -*) has_option=1; break ;;
-    esac
-  done
-  if (( has_option || $# > 1 )); then
-    command /usr/bin/ssh "$@"
-    return $?
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
   fi
-
-  local host="$1"
-
-  # Prompt remoto: andrea@mutolo> (verde), senza :~$
-  command /usr/bin/ssh -t "$host" \
-    "env PS1='\[\e[38;5;34m\]\u@\h>\[\e[0m\] ' bash --noprofile --norc -i"
-}
-
+fi
 
 # =========================
 # su wrapper: restore title after exit
@@ -133,6 +102,22 @@ if ! declare -f venv_info >/dev/null 2>&1; then
   }
 fi
 
+# Used by `alias a` in ~/.bash_aliases: activate the nearest .venv,
+# searching the current directory and then upwards.
+activate_venv() {
+  local dir="$PWD"
+  while [ -n "$dir" ]; do
+    if [ -f "$dir/.venv/bin/activate" ]; then
+      . "$dir/.venv/bin/activate"
+      return 0
+    fi
+    [ "$dir" = "/" ] && break
+    dir="$(dirname "$dir")"
+  done
+  echo "activate_venv: no .venv found in $PWD or any parent" >&2
+  return 1
+}
+
 .prompt() {
   # MUST be first
   local EXIT="$?"
@@ -143,7 +128,7 @@ fi
   local Grn='\[\e[0;92m\]'
   local Reset='\[\e[0m\]'
 
-  local last git
+  local last git venv
   last="$(.last_command "$EXIT")"
   git="$(.git_info)"
   venv="$(venv_info)"
@@ -178,15 +163,29 @@ export NO_AT_BRIDGE=1
 # =========================
 # PATH management (avoid duplicates)
 # =========================
+# append (lowest priority)
 .path_add() {
+  [ -d "$1" ] || return 0
   case ":$PATH:" in
     *":$1:"*) : ;;
     *) PATH="$PATH:$1" ;;
   esac
 }
 
-.path_add "$HOME/.local/bin"
+# prepend (overrides system binaries) -- used for the private bin dirs that
+# ~/.profile used to handle, including the one uv's ~/.local/bin/env set up
+.path_prepend() {
+  [ -d "$1" ] || return 0
+  case ":$PATH:" in
+    *":$1:"*) : ;;
+    *) PATH="$1:$PATH" ;;
+  esac
+}
+
+.path_prepend "$HOME/bin"
+.path_prepend "$HOME/.local/bin"
 .path_add "$HOME/gdrive/personal/bin"
+.path_add /opt/nvim-linux-x86_64/bin
 
 # CUDA (only if present)
 if [ -d /usr/local/cuda/bin ]; then
@@ -204,19 +203,35 @@ if [ -f "$HOME/.bash_aliases" ]; then
   . "$HOME/.bash_aliases"
 fi
 
-export HOSTALIASES="$HOME/.hosts"
+# HOSTALIASES only works if the file exists; an unreadable path makes some
+# resolvers noisy, so set it conditionally.
+[ -f "$HOME/.hosts" ] && export HOSTALIASES="$HOME/.hosts"
 
 # =========================
 # keys
 # =========================
-[ -f ~/adrive/keys/openai_key ]    && source ~/adrive/keys/openai_key
-[ -f ~/adrive/keys/gemini_key ]    && source ~/adrive/keys/gemini_key
-[ -f ~/adrive/keys/deepseek_key ]  && source ~/adrive/keys/deepseek_key
-#[ -f ~/adrive/keys/anthropic_key ] && source ~/adrive/keys/anthropic_key
+# Source every key file found in the keys dir (which lives on adrive, so it is
+# simply absent on machines where that drive is not mounted).
+# Check with:  keys_status
+KEYS_DIR="$HOME/adrive/keys"
+if [ -d "$KEYS_DIR" ]; then
+  for f in "$KEYS_DIR"/*_key; do
+    [ -f "$f" ] && source "$f"
+  done
+fi
+unset f
 
-# noevim
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-
+keys_status() {
+  local k
+  for k in OPENAI_API_KEY GEMINI_API_KEY DEEPSEEK_API_KEY ANTHROPIC_API_KEY; do
+    if [ -n "${!k}" ]; then
+      printf '  %-20s set\n' "$k"
+    else
+      printf '  %-20s MISSING\n' "$k"
+    fi
+  done
+  [ -d "$KEYS_DIR" ] || printf '  (keys dir %s does not exist)\n' "$KEYS_DIR"
+}
 
 export OLLAMA_API_BASE=http://mutolo:11434
 

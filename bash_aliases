@@ -12,7 +12,6 @@ alias pdf="evince"
 alias t="tmux new-session \; split-window -v \; split-window -h \; attach"
 alias grepi="grep -i"
 alias grepi3="grep -i -A3"
-alias vl="vi `ls -tr | tail -1`" 
 # -----------------------------------------------------------------------------
 # Git alias
 alias gc="git commit"
@@ -30,8 +29,10 @@ alias doc="textmaker18free"
 # Alias to specific files
 alias setting="vi ~/adrive/personal/andrea.txt"
 # -----------------------------------------------------------------------------
-# Edit last created 
-alias vl="vi `ls -tr | tail -1`"
+# Edit last created file in the CURRENT directory.
+# NOTE: single quotes are required, otherwise `ls` runs once when the alias is
+# defined (at shell startup) instead of every time you type `vl`.
+alias vl='vi "$(ls -tr | tail -1)"'
 # -----------------------------------------------------------------------------
 # list file on google drive
 alias lg="gio list -a 'standard::display-name'"
