@@ -21,10 +21,8 @@ alias gp="git push"
 alias gl="git pull"
 alias gm="git merge"
 # ------------------------------------------------------------------------------
-# Free office alias
-alias ppt="presentations18free"
-alias xls="planmaker18free"
-alias doc="textmaker18free"
+# Only office alias
+alias oo="onlyoffice-desktopeditors"
 # -------------------------------------------------------------------------
 # Alias to specific files
 alias setting="vi ~/adrive/personal/andrea.txt"

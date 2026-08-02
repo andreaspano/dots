@@ -4,11 +4,11 @@
 **/.git/
 **/__init__.py
 
+# All hidden directories in $HOME, unless listed in include.bkp
+# (include.bkp is fed to rsync as --include-from *before* this file,
+#  and the first matching rule wins).
+/home/andrea/.*/
+
 /home/andrea/snap/
 /home/andrea/R
 /home/andrea/Downloads
-/home/andrea/.cache
-
-
-
-

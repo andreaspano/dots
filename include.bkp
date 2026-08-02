@@ -1,1 +1,15 @@
 home/andrea
+
+# Hidden directories are excluded by default (see exclude.bkp).
+# Any dot-dir listed here is kept.
+home/andrea/.ssh
+home/andrea/.gnupg
+home/andrea/.pki
+home/andrea/.config
+home/andrea/.vim
+home/andrea/.mozilla
+home/andrea/.jupyter
+home/andrea/.ipython
+home/andrea/.fonts
+home/andrea/.linuxmint
+home/andrea/.gnome

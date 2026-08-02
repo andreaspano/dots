@@ -29,10 +29,14 @@ bkp() {
   TIMESTAMP="$(date +"%Y-%m-%d_%H-%M-%S")"
   REMOTE_DIR="${REMOTE_BASE_DIR}/${TIMESTAMP}"
 
+  # --include-from must come before --exclude-from: rsync applies filter rules in
+  # order and the first match wins, so listing a dot-dir in INCLUDE_FILE rescues
+  # it from the blanket "/home/andrea/.*/" exclude.
   local RSYNC_OPTS=(
     -aHr
     --human-readable
     --files-from="$INCLUDE_FILE"
+    --include-from="$INCLUDE_FILE"
     --exclude-from="$EXCLUDE_FILE"
     --relative
     -e "ssh -i $SSH_KEY"
@@ -47,6 +51,7 @@ bkp() {
   stats_out=$(rsync -aHr \
     --no-human-readable \
     --files-from="$INCLUDE_FILE" \
+    --include-from="$INCLUDE_FILE" \
     --exclude-from="$EXCLUDE_FILE" \
     --relative \
     -e "ssh -i $SSH_KEY" \
