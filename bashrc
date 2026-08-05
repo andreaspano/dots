@@ -130,6 +130,13 @@ if command -v git >/dev/null 2>&1; then
   [ "$(git config --global user.name)" = "andreaspano" ] || git config --global user.name "andreaspano"
 fi
 
+# ==========================
+# dot files
+# ==========================
+ln -sfn "$HOME/dev/dots/vimrc" "$HOME/.vimrc"
+ln -sfn "$HOME/dev/dots/bash_aliases" "$HOME/.bash_aliases"
+ln -sfn "$HOME/dev/dots/tmux.conf" "$HOME/.tmux.conf"
+
 # =========================
 # Env vars
 # =========================

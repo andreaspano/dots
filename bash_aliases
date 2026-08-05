@@ -3,8 +3,11 @@
 alias p="pwd"
 alias ls="ls --color" 
 alias l=ls
-alias ll="ls -al"
+alias la="ls -al"
 alias lt="ls -ltr"
+alias sl="find . -maxdepth 1 -type l -printf '%f -> %l\n'"
+
+
 alias rm="rm -i"
 alias rf="rm -rf"
 alias h="htop -u nobody"

@@ -8,4 +8,6 @@
 # The trade-off: lines an installer appends to ~/.profile will NOT be read --
 # if a newly installed tool is missing from PATH, check there first.
 
+ln -s ~/dev/dots/vimrc .vimrc
+
 [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
