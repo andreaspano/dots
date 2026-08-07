@@ -66,16 +66,36 @@ su() {
 # =========================
 # Prompt helpers
 # =========================
-.last_command() {
-  local code="${1:-0}"
-  local Red='\[\e[0;31m\]'
-  local Gre='\[\e[0;32m\]'
-  local Reset='\[\e[0m\]'
+# Colors are palette indices, not hex, so the prompt follows whatever the
+# GNOME Terminal profile defines. The \[ \] wrappers mark them zero-width
+# for readline; without them long lines wrap wrong and Ctrl-R redraws junk.
+.pc() { printf '\[\e[38;5;%sm\]' "$1"; }
+_PC_DIM="$(.pc 8)"    _PC_AMBER="$(.pc 11)"  _PC_BLUE="$(.pc 12)"
+_PC_GREEN="$(.pc 10)" _PC_MAGENTA="$(.pc 13)" _PC_RED="$(.pc 9)"
+_PC_FG="$(.pc 7)"     _PC_OFF='\[\e[0m\]'
 
-  if (( code != 0 )); then
-    printf '%b' "${Red}✗ ${Reset}"
+# Nerd Font glyphs (JetBrainsMonoNL Nerd Font). If these ever show as boxes,
+# the profile font has been changed to something without the icon range.
+_PG_USER=$'' _PG_DIR=$'' _PG_GIT=$'' _PG_PY=$''
+
+# ----- command timer -----
+# DEBUG fires before every command; .prompt clears _PROMPT_T0 when it is done,
+# so an empty Enter keypress reports no duration at all.
+.timer_start() { [ -n "${_PROMPT_T0:-}" ] || _PROMPT_T0=$EPOCHREALTIME; }
+trap '.timer_start' DEBUG
+
+# Elapsed wall time of the last command, blank under 1s to keep the prompt
+# quiet. Digits are extracted with [^0-9] rather than by splitting on "."
+# because EPOCHREALTIME uses the LC_NUMERIC separator, a comma under it_IT.
+.duration() {
+  [ -n "${_PROMPT_T0:-}" ] || return 0
+  local now="${EPOCHREALTIME//[^0-9]/}" t0="${_PROMPT_T0//[^0-9]/}"
+  local ms=$(( (now - t0) / 1000 ))
+  (( ms < 1000 )) && return 0
+  if (( ms < 60000 )); then
+    printf '%d.%01ds' $(( ms / 1000 )) $(( ms % 1000 / 100 ))
   else
-    printf '%b' "${Gre}✓ ${Reset}"
+    printf '%dm%02ds' $(( ms / 60000 )) $(( ms % 60000 / 1000 ))
   fi
 }
 
@@ -83,10 +103,15 @@ su() {
   # fast check
   git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return 0
 
-  local branch
-  branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)" || branch="detached"
+  local branch dirty n
+  branch="$(git symbolic-ref --quiet --short HEAD 2>/dev/null)" \
+    || branch="$(git rev-parse --short HEAD 2>/dev/null)" \
+    || branch="detached"
 
-  printf '[%s] ' "$branch"
+  n="$(git status --porcelain 2>/dev/null | wc -l)"
+  (( n > 0 )) && dirty=" ●${n}"
+
+  printf '%s %s%s' "$_PG_GIT" "$branch" "$dirty"
 }
 
 
@@ -103,23 +128,57 @@ if ! declare -f venv_info >/dev/null 2>&1; then
 fi
 
 
+# Keeps $COLUMNS current, which the right-alignment below depends on.
+shopt -s checkwinsize
+
 .prompt() {
   # MUST be first
   local EXIT="$?"
 
-  # PS1-safe colors
-  local Red='\[\e[0;31m\]'
-  local Blu='\[\e[0;34m\]'
-  local Grn='\[\e[0;92m\]'
-  local Reset='\[\e[0m\]'
-
-  local last git venv
-  last="$(.last_command "$EXIT")"
+  local dur git venv cwd host
+  dur="$(.duration)"
   git="$(.git_info)"
-  venv="$(venv_info)"
+  venv="$(venv_info)"; venv="${venv#(}"; venv="${venv%) }"
+  cwd="${PWD/#$HOME/\~}"
+  host="${HOSTNAME%%.*}"   # short name; FQDNs would eat the line
 
-  # End with Reset so input starts clean
-  PS1="${Red}\w ${Blu}${git}${Grn}${venv}${Reset}\n${last}"
+  # The top line is built as colored text alongside a running column count
+  # rather than measuring the finished string: the Nerd Font icons occupy two
+  # columns but are one character each, so ${#top} would under-count and skew
+  # the padding. Every += therefore states its own width.
+  local top="" cols=0 sep="${_PC_DIM} │ "
+
+  top+="${_PC_AMBER}${_PG_USER}  ${USER}${_PC_DIM}@${_PC_AMBER}${host}"
+  (( cols += 4 + ${#USER} + 1 + ${#host} ))
+  top+="${sep}"                                   ; (( cols += 3 ))
+  top+="${_PC_BLUE}${_PG_DIR}  ${cwd}"            ; (( cols += 4 + ${#cwd} ))
+  [ -n "$git" ]  && { top+="${sep}${_PC_GREEN}${git}"          ; (( cols += 4 + ${#git} )); }
+  [ -n "$venv" ] && { top+="${sep}${_PC_MAGENTA}${_PG_PY}  ${venv}"; (( cols += 7 + ${#venv} )); }
+
+  # Command duration, right-aligned when there is room and dropped when not.
+  local spaces pad
+  if [ -n "$dur" ]; then
+    pad=$(( ${COLUMNS:-80} - cols - ${#dur} - 1 ))
+    if (( pad > 1 )); then
+      printf -v spaces '%*s' "$pad" ''
+      top+="${spaces}${_PC_AMBER}${dur}"
+    fi
+  fi
+
+  # Status is a bare red cross on failure, nothing on success — the green
+  # caret already says it went fine.
+  local mark
+  if (( EXIT != 0 )); then
+    mark="${_PC_RED}✗ ❯"
+  else
+    mark="${_PC_GREEN}❯"
+  fi
+
+  # End on the body color so typed input starts clean
+  PS1="${top}\n${mark} ${_PC_FG}"
+
+  # Last: the DEBUG trap re-arms only once this is cleared
+  unset _PROMPT_T0
 }
 
 # =========================
