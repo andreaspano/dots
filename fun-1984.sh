@@ -115,42 +115,51 @@ _1984_read_gpu() {
     (( VRAM_TOTAL > 0 ))
 }
 
-# ─── rendering di un frame ─────────────────────────────────────────────────────
-_1984_render() {
-    local out='' SEP="${D} -- ${R}" rp vp
+# ─── costruzione della riga di stato ───────────────────────────────────────────
+# Scrive in LINE usando le variabili colore già impostate dal chiamante: così la
+# stessa riga serve sia al frame a schermo intero sia alla status bar di tmux.
+_1984_build_line() {                             # -> LINE
+    local SEP="${D} -- ${R}" rp vp
+    LINE=''
 
     _1984_cpu_pct 0
     _1984_col_for "$P_TOT"; _1984_pct_str "$P_TOT"
-    out+="  ${B}CPU${R} ${COL}${B}${PCT}${R}"
+    LINE+="  ${B}CPU${R} ${COL}${B}${PCT}${R}"
 
     _1984_busy_cores                             # nota: sovrascrive P_TOT
     _1984_col_for $(( NCPU > 0 ? BUSY * 1000 / NCPU : 0 ))
-    out+="${SEP}${B}NumC${R} ${COL}${B}${BUSY}/${NCPU}${R}"
+    LINE+="${SEP}${B}NumC${R} ${COL}${B}${BUSY}/${NCPU}${R}"
 
     _1984_read_mem
     rp=$(( MemUsed * 1000 / MemTotal ))
     _1984_col_for "$rp"; _1984_pct_str "$rp"
-    out+="${SEP}${B}${MAG}RAM${R} ${COL}${B}${PCT}${R}"
+    LINE+="${SEP}${B}${MAG}RAM${R} ${COL}${B}${PCT}${R}"
 
     if _1984_read_gpu; then
         if (( GPU_UTIL >= 0 )); then
             _1984_col_for "$GPU_UTIL"; _1984_pct_str "$GPU_UTIL"
-            out+="${SEP}${B}${CYN}GPU${R} ${COL}${B}${PCT}${R}"
+            LINE+="${SEP}${B}${CYN}GPU${R} ${COL}${B}${PCT}${R}"
         else
-            out+="${SEP}${B}${CYN}GPU${R} ${D}n/d${R}"
+            LINE+="${SEP}${B}${CYN}GPU${R} ${D}n/d${R}"
         fi
         vp=$(( VRAM_USED * 1000 / VRAM_TOTAL ))
         _1984_col_for "$vp"; _1984_pct_str "$vp"
-        out+="${SEP}${B}${CYN}VRAM${R} ${COL}${B}${PCT}${R}"
+        LINE+="${SEP}${B}${CYN}VRAM${R} ${COL}${B}${PCT}${R}"
     else
-        out+="${SEP}${B}${CYN}GPU${R} ${D}n/d${R}${SEP}${B}${CYN}VRAM${R} ${D}n/d${R}"
+        LINE+="${SEP}${B}${CYN}GPU${R} ${D}n/d${R}${SEP}${B}${CYN}VRAM${R} ${D}n/d${R}"
     fi
+    return 0
+}
 
-    printf '\e[H%b\e[K' "$out"
+# ─── rendering di un frame ─────────────────────────────────────────────────────
+_1984_render() {
+    local LINE=''
+    _1984_build_line
+    printf '\e[H%b\e[K' "$LINE"
 }
 
 # ─── funzione principale ───────────────────────────────────────────────────────
-1984.sh() {
+1984() {
     # tutte locali: nulla resta nella shell dopo il ritorno (le ausiliarie le
     # vedono comunque, bash usa scoping dinamico)
     local DELAY=1 FRAMES=0 frame=0 key
@@ -210,7 +219,57 @@ _1984_render() {
     return 0
 }
 
+# ─── riga singola, per la status bar di tmux ───────────────────────────────────
+# Stampa una riga e termina, invece di ciclare. Il delta CPU è calcolato rispetto
+# alla chiamata precedente, il cui campione sta in un file di stato: così non
+# serve dormire tra due letture di /proc/stat e ogni invocazione resta istantanea.
+# Il file memorizza anche l'esito del probe GPU, che altrimenti si ripeterebbe a
+# ogni refresh (nvidia-smi costa un fork).
+#
+#     1984_status            colori ANSI, per il terminale
+#     1984_status --tmux     tag #[...] di tmux, per status-right
+1984_status() {
+    local R B D GRN RED YEL CYN MAG LINE=''
+
+    case ${1:-} in
+        -t|--tmux)
+            R='#[default]' B='#[bold]' D='#[fg=colour244,nobold]'
+            GRN='#[fg=green]' RED='#[fg=red]' YEL='#[fg=yellow]'
+            CYN='#[fg=cyan]' MAG='#[fg=magenta]' ;;
+        -a|--ansi|'')
+            R=$'\e[0m' B=$'\e[1m' D=$'\e[2m'
+            GRN=$'\e[32m' RED=$'\e[31m' YEL=$'\e[33m' CYN=$'\e[36m' MAG=$'\e[35m' ;;
+        *) echo "opzione sconosciuta: $1" >&2; return 1 ;;
+    esac
+
+    local BUSY_THRESHOLD=250
+    local NCPU=0 BUSY=0 P_TOT=0 COL='' PCT=''
+    local MemTotal=1 MemFree=0 Buffers=0 Cached=0 SReclaimable=0 Shmem=0
+    local CacheTot=0 MemUsed=0
+    local VRAM_USED=0 VRAM_TOTAL=0 GPU_UTIL=-1
+    local -a cur_total=() cur_idle=() prev_total=() prev_idle=()
+    local state="${XDG_RUNTIME_DIR:-$HOME/.cache}/1984-status"
+
+    # il file è sotto $HOME (o nella runtime dir dell'utente), non in /tmp: viene
+    # sorgentato, quindi non deve stare in una directory scrivibile da altri
+    [[ -d ${state%/*} ]] || mkdir -p "${state%/*}"
+    [[ -r $state ]] && source "$state"
+
+    _1984_detect_gpu                             # no-op se lo stato l'ha già impostato
+    _1984_sample_cpu
+    # prima chiamata (o conteggio core cambiato): delta nullo, niente da fare
+    (( ${#prev_total[@]} == ${#cur_total[@]} )) || {
+        prev_total=("${cur_total[@]}"); prev_idle=("${cur_idle[@]}")
+    }
+    printf 'prev_total=(%s)\nprev_idle=(%s)\n_1984_GPU_MODE=%s\n_1984_AMD_DEV=%s\n' \
+           "${cur_total[*]}" "${cur_idle[*]}" \
+           "$_1984_GPU_MODE" "${_1984_AMD_DEV:-}" > "$state"
+
+    _1984_build_line
+    printf '%s\n' "$LINE"
+}
+
 # eseguito direttamente invece che sourcato -> lancia subito la funzione
 if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
-    1984.sh "$@"
+    1984 "$@"
 fi

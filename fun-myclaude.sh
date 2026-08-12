@@ -4,17 +4,21 @@ clstart() {
 
  if ! tmux has-session -t "$SESSION" 2>/dev/null; then
   tmux new-session -d -s "$SESSION"
-  local first_pane
-  first_pane=$(tmux display-message -t "$SESSION" -p '#{pane_id}')
-  tmux split-window -h -p 60 -t "$SESSION"
-  tmux split-window -v -t "$SESSION"
-  tmux select-pane -t "$first_pane"
-  tmux send-keys -t "$first_pane" "claude" Enter
-  sleep 2 && tmux send-keys -t "$first_pane" Enter &
+  local claude_pane right_top right_bottom
+  claude_pane=$(tmux display-message -t "$SESSION" -p '#{pane_id}')
+  right_top=$(tmux split-window -h -p 60 -t "$claude_pane" -P -F '#{pane_id}')
+  right_bottom=$(tmux split-window -v -t "$right_top" -P -F '#{pane_id}')
 
-  tmux send-keys -t "$SESSION.2" "rgr" Enter
+  # il monitor 1984 nella status bar arriva da ~/.tmux.conf: vale per ogni
+  # sessione, non serve impostarlo qui.
 
-  tmux send-keys -t "$SESSION.3" "source ./.venv/bin/activate" Enter
+  tmux select-pane -t "$claude_pane"
+  tmux send-keys -t "$claude_pane" "claude" Enter
+  sleep 2 && tmux send-keys -t "$claude_pane" Enter &
+
+  tmux send-keys -t "$right_top" "rgr" Enter
+
+  tmux send-keys -t "$right_bottom" "source ./.venv/bin/activate" Enter
  fi
 
  tmux attach -t "$SESSION"
