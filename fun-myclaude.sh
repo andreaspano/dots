@@ -3,10 +3,10 @@ clstart() {
  SESSION="MyClaude-$(basename "$PWD")"
 
  if ! tmux has-session -t "$SESSION" 2>/dev/null; then
-  tmux new-session -d -s "$SESSION"
+  tmux new-session -d -s "$SESSION" -x 220 -y 50
   local claude_pane right_top right_bottom
   claude_pane=$(tmux display-message -t "$SESSION" -p '#{pane_id}')
-  right_top=$(tmux split-window -h -p 60 -t "$claude_pane" -P -F '#{pane_id}')
+  right_top=$(tmux split-window -h -l 132 -t "$claude_pane" -P -F '#{pane_id}')
   right_bottom=$(tmux split-window -v -t "$right_top" -P -F '#{pane_id}')
 
   # il monitor 1984 nella status bar arriva da ~/.tmux.conf: vale per ogni
