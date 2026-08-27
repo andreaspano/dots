@@ -23,6 +23,7 @@ alias gs="git status"
 alias gp="git push"
 alias gl="git pull"
 alias gm="git merge"
+alias gb="git branch"
 # ------------------------------------------------------------------------------
 # Only office alias
 alias oo="onlyoffice-desktopeditors"
