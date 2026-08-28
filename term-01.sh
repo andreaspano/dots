@@ -25,10 +25,10 @@ ROOT=/org/gnome/terminal/legacy/profiles:
 # Order here is the order they appear in Preferences.
 PROFILES=(
   "b1dcc9dd-5262-4d8d-a863-c897e6d979b9:soldark"
-  "d1dfd885-e9d5-4e38-bb69-72bb8deff888:matrix"
-  "f2f518fe-6516-4eb4-a503-246552bf300d:andrea"
+  "6443a06c-9cf2-44bf-8c5d-baf9047618a9:ernesto"
+  "8a419f07-1000-43e7-a6f1-fa6c24fd57ed:mutolo"
 )
-DEFAULT_PROFILE=f2f518fe-6516-4eb4-a503-246552bf300d
+DEFAULT_PROFILE=6443a06c-9cf2-44bf-8c5d-baf9047618a9
 
 command -v dconf >/dev/null || { echo "term-01: dconf not found" >&2; exit 1; }
 
@@ -109,32 +109,32 @@ use-theme-colors=false
 visible-name='soldark'
 ### END b1dcc9dd-5262-4d8d-a863-c897e6d979b9
 
-### BEGIN d1dfd885-e9d5-4e38-bb69-72bb8deff888
+### BEGIN 6443a06c-9cf2-44bf-8c5d-baf9047618a9
 [/]
 audible-bell=false
-background-color='#050A05'
-bold-color='#A6FFBF'
+background-color='#192330'
+bold-color='#e4e4e5'
 bold-color-same-as-fg=false
 cell-height-scale=1.1000000000000001
 cell-width-scale=1.0
-cursor-background-color='#00FF41'
+cursor-background-color='#cdcecf'
 cursor-blink-mode='on'
 cursor-colors-set=true
-cursor-foreground-color='#050A05'
+cursor-foreground-color='#192330'
 cursor-shape='block'
 font='JetBrainsMonoNL Nerd Font 12'
-foreground-color='#4DE87A'
-highlight-background-color='#00FF41'
+foreground-color='#cdcecf'
+highlight-background-color='#2b3b51'
 highlight-colors-set=true
-highlight-foreground-color='#050A05'
-palette=['#050A05', '#D45A5A', '#2FB84C', '#7FCF4A', '#2FA97A', '#4FCF8F', '#35C79A', '#9BE8AE', '#3E7A4E', '#FF6B6B', '#4DFF7A', '#A6F55C', '#52D9A8', '#7BEFB8', '#5CF0C4', '#D6FFE0']
+highlight-foreground-color='#cdcecf'
+palette=['#393b44', '#c94f6d', '#81b29a', '#dbc074', '#719cd6', '#9d79d6', '#63cdcf', '#dfdfe0', '#575860', '#d16983', '#8ebaa4', '#e0c989', '#86abdc', '#baa1e2', '#7ad5d6', '#e4e4e5']
 scrollback-unlimited=true
 use-system-font=false
 use-theme-colors=false
-visible-name='matrix'
-### END d1dfd885-e9d5-4e38-bb69-72bb8deff888
+visible-name='ernesto'
+### END 6443a06c-9cf2-44bf-8c5d-baf9047618a9
 
-### BEGIN f2f518fe-6516-4eb4-a503-246552bf300d
+### BEGIN 8a419f07-1000-43e7-a6f1-fa6c24fd57ed
 [/]
 audible-bell=false
 background-color='#1B1E20'
@@ -156,5 +156,5 @@ palette=['#1B1E20', '#E05A5A', '#7FB971', '#E0A33A', '#6C9BD6', '#B58BC4', '#58B
 scrollback-unlimited=true
 use-system-font=false
 use-theme-colors=false
-visible-name='andrea'
-### END f2f518fe-6516-4eb4-a503-246552bf300d
+visible-name='mutolo'
+### END 8a419f07-1000-43e7-a6f1-fa6c24fd57ed
