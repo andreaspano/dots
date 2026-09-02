@@ -28,6 +28,32 @@ set number
 nnoremap <C-Left> gt
 nnoremap <C-Right> gT
 
+" Send the visually selected lines to the MyClaude console pane (tmux,
+" see fun-test.sh) with q. Uses tmux's own buffer instead of piping through
+" the shell, so no escaping worries. Afterwards, re-enters visual mode on
+" the next non-blank line so a repeated q walks through the file.
+function! s:SendSelectionToTmux() range
+  if empty($TMUX) || empty($MYCLAUDE_CONSOLE_PANE)
+    echom 'MYCLAUDE_CONSOLE_PANE not set: not inside a MyClaude tmux session'
+    return
+  endif
+  let text = join(getline(a:firstline, a:lastline), "\n") . "\n"
+  call system('tmux load-buffer -', text)
+  call system('tmux paste-buffer -d -p -t ' . shellescape($MYCLAUDE_CONSOLE_PANE))
+
+  let next = a:lastline + 1
+  let last = line('$')
+  while next <= last && getline(next) =~ '^\s*$'
+    let next += 1
+  endwhile
+  if next <= last
+    call cursor(next, 1)
+    normal! V
+  endif
+endfunction
+
+xnoremap <silent> q :call <SID>SendSelectionToTmux()<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
