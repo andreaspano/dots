@@ -190,3 +190,11 @@ ai() {
   done
 }
 
+qwen() {
+  AI_MODEL=qwen2.5-coder:7b ai
+}
+
+llama() {
+  AI_MODEL=llama3 ai
+}
+
