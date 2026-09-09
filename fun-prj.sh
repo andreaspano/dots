@@ -10,5 +10,6 @@ prj() {
   cd "$name" || return 1
   uv venv
   source .venv/bin/activate
+  uv pip install ipython
   echo -e "\nHappy journey\n"
 }

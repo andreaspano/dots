@@ -28,6 +28,28 @@ set number
 nnoremap <C-Left> gt
 nnoremap <C-Right> gT
 
+" Tab labels: file name only, never the path (vim's default tabline falls
+" back to showing path segments when two open tabs share a basename).
+function! MyTabLine()
+  let s = ''
+  for i in range(tabpagenr('$'))
+    let tabnr = i + 1
+    let winnr = tabpagewinnr(tabnr)
+    let bufnr = tabpagebuflist(tabnr)[winnr - 1]
+    let bufname = bufname(bufnr)
+    let label = bufname ==# '' ? '[No Name]' : fnamemodify(bufname, ':t')
+    let modified = getbufvar(bufnr, '&modified') ? ' [+]' : ''
+
+    let s .= '%' . tabnr . 'T'
+    let s .= (tabnr == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+    let s .= ' ' . label . modified . ' '
+  endfor
+  let s .= '%#TabLineFill#%T'
+  return s
+endfunction
+
+set tabline=%!MyTabLine()
+
 " Send the visually selected lines to the MyClaude console pane (tmux,
 " see fun-test.sh) with q. Uses tmux's own buffer instead of piping through
 " the shell, so no escaping worries. Afterwards, re-enters visual mode on
@@ -37,9 +59,10 @@ function! s:SendSelectionToTmux() range
     echom 'MYCLAUDE_CONSOLE_PANE not set: not inside a MyClaude tmux session'
     return
   endif
-  let text = join(getline(a:firstline, a:lastline), "\n") . "\n"
+  let text = join(getline(a:firstline, a:lastline), "\n")
   call system('tmux load-buffer -', text)
   call system('tmux paste-buffer -d -p -t ' . shellescape($MYCLAUDE_CONSOLE_PANE))
+  call system('tmux send-keys -t ' . shellescape($MYCLAUDE_CONSOLE_PANE) . ' Enter')
 
   let next = a:lastline + 1
   let last = line('$')
@@ -69,6 +92,11 @@ try
     colorscheme desert
 catch
 endtry
+
+" Keep the terminal/tmux pane's own background instead of the dark grey
+" desert forces on Normal/NonText, so opening vim doesn't shift the bg color.
+highlight Normal ctermbg=NONE guibg=NONE
+highlight NonText ctermbg=NONE guibg=NONE
 
 set background=dark
 
