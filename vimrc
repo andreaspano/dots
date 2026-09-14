@@ -8,21 +8,12 @@ set title
 set titlestring=%t%m
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Row number 
+" => Row number
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable row number 
+" Enable row number
 set number 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Short cuts  
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Search text  
-"map f / 
-
-" Split Vertical
-"map v :split<enter>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Buffer Navigation
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <C-Left> gt
@@ -146,38 +137,8 @@ set si "Smart indent
 set wrap "Wrap lines
 
 
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Terminal
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set term=xterm-256color
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugins via Vim-Plug 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-
-" To install any plugin just type vim command PlugInstall
-
-" Specify a directory for plugins
-" Make sure you use single quotes
-" call plug#begin('~/.vim/plugged')
-
-" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-"Plug 'junegunn/vim-easy-align'
-
-" R Vim plugin
-"Plug 'jalvesaq/Nvim-R'
-
-"Plug 'roxma/nvim-completion-manager'
-"Plug 'gaalcaras/ncm-R'
-
-"Plug 'ncm2/ncm2'
-"Plug 'roxma/nvim-yarp'
-
-" markdown plugin
-"Plug 'godlygeek/tabular'
-"Plug 'plasticboy/vim-markdown'
-
-" Initialize plugin system
-"call plug#end()
-
-
 
