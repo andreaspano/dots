@@ -6,8 +6,8 @@ c1() {
   tmux new-session -d -s "$SESSION" -x 220 -y 50
   local bash_pane left_top left_bottom claude_pane
   left_top=$(tmux display-message -t "$SESSION" -p '#{pane_id}')
-  claude_pane=$(tmux split-window -h -l 87 -t "$left_top" -P -F '#{pane_id}')
-  bash_pane=$(tmux split-window -h -b -l 40 -t "$left_top" -P -F '#{pane_id}')
+  claude_pane=$(tmux split-window -h -l 40% -t "$left_top" -P -F '#{pane_id}')
+  bash_pane=$(tmux split-window -h -b -l 30% -t "$left_top" -P -F '#{pane_id}')
   left_bottom=$(tmux split-window -v -t "$left_top" -P -F '#{pane_id}')
 
   # il monitor 1984 nella status bar arriva da ~/.tmux.conf: vale per ogni
