@@ -1,8 +1,9 @@
 [Desktop Entry]
-Name=sdg-calendar
-Exec=/home/andrea/calendar.sh
-Comment=
+Name=SDG Calendar
+Comment=SDG Group Google Calendar in surf
+Exec=/bin/bash /home/andrea/dev/dots/calendar.sh
 Terminal=false
 PrefersNonDefaultGPU=false
-Icon=google-calendar
+Icon=x-office-calendar
 Type=Application
+StartupWMClass=sdg-calendar

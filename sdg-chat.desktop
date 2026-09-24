@@ -1,8 +1,9 @@
 [Desktop Entry]
-Name=sdg-chat
-Exec=/home/andrea/chat.sh
-Comment=
+Name=SDG Chat
+Comment=SDG Group Google Chat in surf
+Exec=/bin/bash /home/andrea/dev/dots/chat.sh
 Terminal=false
 PrefersNonDefaultGPU=false
-Icon=gmail
+Icon=internet-chat
 Type=Application
+StartupWMClass=sdg-chat

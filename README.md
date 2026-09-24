@@ -15,7 +15,7 @@ symlink
 ln -s ./dev/dots/.bashrc .
 ln -s ./dev/dots/.tmux.conf ~/.
 
-
+# cambiare macchina
 
 
 

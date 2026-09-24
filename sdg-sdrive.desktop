@@ -1,8 +1,9 @@
 [Desktop Entry]
-Name=sdg-sdrive
-Exec=/home/andrea/sdrive.sh
-Comment=
+Name=SDG Drive
+Comment=SDG Group Google Drive in surf
+Exec=/bin/bash /home/andrea/dev/dots/sdrive.sh
 Terminal=false
 PrefersNonDefaultGPU=false
-Icon=google-drive
+Icon=folder-remote
 Type=Application
+StartupWMClass=sdg-sdrive

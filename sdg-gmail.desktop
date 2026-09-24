@@ -1,8 +1,9 @@
 [Desktop Entry]
-Name=sdg-gmail
-Exec=/home/andrea/gmail.sh
-Comment=
+Name=SDG Gmail
+Comment=SDG Group Gmail in surf
+Exec=/bin/bash /home/andrea/dev/dots/gmail.sh
 Terminal=false
 PrefersNonDefaultGPU=false
 Icon=gmail
 Type=Application
+StartupWMClass=sdg-gmail
