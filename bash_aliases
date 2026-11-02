@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # Generic alias 
 alias p="pwd"
-alias ls="ls --color" 
+alias ls="lsd" 
 alias l=ls
 alias la="ls -al"
 alias lt="ls -ltr"
@@ -15,6 +15,8 @@ alias pdf="evince"
 alias t="tmux new-session \; split-window -v \; split-window -h \; attach"
 alias grepi="grep -i"
 alias grepi3="grep -i -A3"
+
+alias www="google-chrome"
 # -----------------------------------------------------------------------------
 # Git alias
 alias gc="git commit"
