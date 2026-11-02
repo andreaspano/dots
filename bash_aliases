@@ -1,7 +1,8 @@
 # ------------------------------------------------------------------------------
 # Generic alias 
 alias p="pwd"
-alias ls="lsd" 
+# lsd where installed (not on mutolo by default), plain colored ls otherwise
+if command -v lsd >/dev/null; then alias ls="lsd"; else alias ls="ls --color"; fi
 alias l=ls
 alias la="ls -al"
 alias lt="ls -ltr"
