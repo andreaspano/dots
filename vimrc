@@ -142,3 +142,17 @@ set wrap "Wrap lines
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set term=xterm-256color
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+call plug#begin()
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
+call plug#end()
+
+" opzioni vim-markdown
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_math = 1
+let g:vim_markdown_new_list_item_indent = 2
