@@ -2,6 +2,12 @@ clstart() {
  
  SESSION="MyClaude-$(basename "$PWD")"
 
+ # tmux legge ~/.tmux.conf solo all'avvio del server: se un server è già in
+ # piedi (anche per un'altra sessione) lo ricarichiamo, così le modifiche a
+ # tmux.conf arrivano senza doverlo riavviare. Senza server il comando
+ # fallisce in silenzio e la new-session qui sotto parte già aggiornata.
+ tmux source-file ~/.tmux.conf 2>/dev/null
+
  if ! tmux has-session -t "$SESSION" 2>/dev/null; then
   tmux new-session -d -s "$SESSION" -x 220 -y 50
   local claude_pane right_top right_bottom

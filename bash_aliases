@@ -37,7 +37,7 @@ alias setting="vi ~/adrive/personal/andrea.txt"
 # Edit last created file in the CURRENT directory.
 # NOTE: single quotes are required, otherwise `ls` runs once when the alias is
 # defined (at shell startup) instead of every time you type `vl`.
-alias vl='vi "$(ls -tr | tail -1)"'
+alias vl='vi "$(ls -1t *.md 2>/dev/null | head -1)"'
 # -----------------------------------------------------------------------------
 # list file on google drive
 alias lg="gio list -a 'standard::display-name'"
