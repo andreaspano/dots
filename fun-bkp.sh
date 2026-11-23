@@ -14,7 +14,7 @@ bkp() {
   esac
 
   local REMOTE_USER="andrea"
-  local REMOTE_HOST=192.168.1.2
+  local REMOTE_HOST="mutolo"
   local REMOTE_BASE_DIR="/home/andrea/bkp"
   local INCLUDE_FILE="/home/andrea/.include.bkp"
   local EXCLUDE_FILE="/home/andrea/.exclude.bkp"
